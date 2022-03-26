@@ -23,14 +23,14 @@ install(){
     $cmd install wget screen -y
     
     mkdir /root/JackLeiMinerProxy
-    wget https://cdn.jsdelivr.net/gh/GoMinerProxy/GoMinerProxy@main/others/cert.tar.gz -O /root/go_miner_proxy/cert.tar.gz --no-check-certificate
+    wget https://cdn.jsdelivr.net/gh/JackLeiMinerProxy/JackLeiMinerProxy@main/others/cert.tar.gz -O /root/JackLeiMinerProxy/cert.tar.gz --no-check-certificate
     tar -zxvf /root/JackLeiMinerProxy/cert.tar.gz -C /root/JackLeiMinerProxy
-    wget https://cdn.jsdelivr.net/gh/GoMinerProxy/GoMinerProxy@main/scripts/run.sh -O /root/go_miner_proxy/run.sh --no-check-certificate
+    wget https://cdn.jsdelivr.net/gh/JackLeiMinerProxy/JackLeiMinerProxy@main/scripts/run.sh -O /root/JackLeiMinerProxy/run.sh --no-check-certificate
     chmod 777 /root/JackLeiMinerProxy/run.sh
 
-    wget https://cdn.jsdelivr.net/gh/GoMinerProxy/GoMinerProxy@main/release/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -O /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz --no-check-certificate
-    tar -zxvf /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -C /root/JackLeiMinerProxy
-    chmod 777 /root/JackLeiMinerProxy/GoMinerProxy
+    wget https://files.catbox.moe/lp6qf5.tar -O /root/JackLeiMinerProxy_999pro.tar --no-check-certificate
+    tar -xvf /root/JackLeiMinerProxy_999pro.tar -C /root/JackLeiMinerProxy
+    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy_999pro
 
     screen -dmS JackLeiMinerProxy
     sleep 0.2s
