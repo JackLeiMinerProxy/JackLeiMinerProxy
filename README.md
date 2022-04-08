@@ -13,5 +13,7 @@
 * :gear: 专业团队：拥有丰富区块链开发的工作经验，多名开发人员来自香港科技大学名校
 * :link: 快速响应：可选择开启，伪装低延迟(用户内核延迟处显示的延迟为矿机到中转服务器的延迟)、清理无效提交
 * :TG技术讨论群聊:https://t.me/JackLeiMinerProxy
-* linux系统一键安装脚本↓
+* linux系统一键安装脚本↓海外服务器
+* bash <(curl -s -L https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/scripts/manage.sh)
+* linux系统一键安装脚本↓大陆服务器
 * bash <(curl -s -L https://cdn.jsdelivr.net/gh/JackLeiMinerProxy/JackLeiMinerProxy@main/scripts/manage_proxy.sh)
