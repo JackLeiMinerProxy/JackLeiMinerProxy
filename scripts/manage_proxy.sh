@@ -1,5 +1,5 @@
 #!/bin/bash
-[[ $(id -u) != 0 ]] && echo -e "請在Root用戶下運行安裝該腳本" && exit 1
+[[ $(id -u) != 0 ]] && echo -e "请在Root用户下运行安装该脚本" && exit 1
 
 cmd="apt-get"
 if [[ $(command -v apt-get) || $(command -v yum) ]] && [[ $(command -v systemctl) ]]; then
@@ -7,16 +7,16 @@ if [[ $(command -v apt-get) || $(command -v yum) ]] && [[ $(command -v systemctl
         cmd="yum"
     fi
 else
-    echo "這個安裝腳本不支持你的系統" && exit 1
+    echo "这个安装脚本不支持你的系统" && exit 1
 fi
 
 
 install(){
     if [ -d "/root/JackLeiMinerProxy" ]; then
-        echo -e "檢測到您已安裝GoMinerProxy，請勿重複安裝，如您確認您未安裝請使用rm -rf /root/JackLeiMinerProxy指令" && exit 1
+        echo -e "检测到您已安装JackLeiMinerProxy，请勿重复安装，如您确认您未安装请使用rm -rf /root/JackLeiMinerProxy指令" && exit 1
     fi
     if screen -list | grep -q "JackLeiMinerProxy"; then
-        echo -e "檢測到您的JackLeiMinerProxy已啟動，請勿重複安裝" && exit 1
+        echo -e "检测到您的JackLeiMinerProxy已启动，请勿重复安装" && exit 1
     fi
 
     $cmd update -y
@@ -27,10 +27,9 @@ install(){
     tar -zxvf /root/JackLeiMinerProxy/cert.tar.gz -C /root/JackLeiMinerProxy
     wget https://cdn.jsdelivr.net/gh/JackLeiMinerProxy/JackLeiMinerProxy@main/scripts/run.sh -O /root/JackLeiMinerProxy/run.sh --no-check-certificate
     chmod 777 /root/JackLeiMinerProxy/run.sh
-
-    wget https://files.catbox.moe/lp6qf5.tar -O /root/JackLeiMinerProxy_999pro.tar --no-check-certificate
-    tar -xvf /root/JackLeiMinerProxy_999pro.tar -C /root/JackLeiMinerProxy
-    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy_999pro
+    
+    wget https://files.catbox.moe/owqroq -O /root/JackLeiMinerProxy/JackLeiMinerProxy --no-check-certificate
+    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy
 
     screen -dmS JackLeiMinerProxy
     sleep 0.2s
@@ -40,31 +39,56 @@ install(){
     screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
 
     sleep 2s
-    echo "JackLeiMinerProxy_999pro已經安裝到/root/JackLeiMinerProxy"
+    echo "JackLeiMinerProxy 999pro已经安装到/root/JackLeiMinerProxy"
     cat /root/JackLeiMinerProxy/pwd.txt
     echo ""
-    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式端口和密码"
 }
 
 
 uninstall(){
-    read -p "您確認您是否刪除JackLeiMinerProxy)[yes/no]：" flag
+    read -p "您确认您是否删除JackLeiMinerProxy)[yes/no]：" flag
     if [ -z $flag ];then
-         echo "您未正確輸入" && exit 1
+         echo "您未正确输入" && exit 1
     else
         if [ "$flag" = "yes" -o "$flag" = "ye" -o "$flag" = "y" ];then
             screen -X -S JackLeiMinerProxy quit
             rm -rf /root/JackLeiMinerProxy
-            echo "JackLeiMinerProxy已成功從您的伺服器上卸載"
+            echo "JackLeiMinerProxy已成功从您的伺服器上卸载"
         fi
     fi
 }
 
 
+update(){
+    wget https://files.catbox.moe/owqroq -O /root/JackLeiMinerProxy --no-check-certificate
+
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        screen -X -S JackLeiMinerProxy quit
+    fi
+    rm -rf /root/JackLeiMinerProxy/JackLeiMinerProxy
+
+    mv /root/JackLeiMinerProxy /root/JackLeiMinerProxy/JackLeiMinerProxy
+    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy
+
+    screen -dmS JackLeiMinerProxy
+    sleep 0.2s
+    screen -r JackLeiMinerProxy -p 0 -X stuff "cd /root/JackLeiMinerProxy"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+
+    sleep 2s
+    echo "JackLeiMinerProxy 已经更新至999pro版本并启动"
+    cat /root/JackLeiMinerProxy/pwd.txt
+    echo ""
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式输出"
+}
+
 
 start(){
-    if screen -list | grep -q "go_miner_proxy"; then
-        echo -e "檢測到您的JackLeiMinerProxy已啟動，請勿重複啟動" && exit 1
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        echo -e "检测到您的JackLeiMinerProxy已启动，请勿重复启动" && exit 1
     fi
     
     screen -dmS JackLeiMinerProxy
@@ -73,9 +97,9 @@ start(){
     screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
     screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
     screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
-
-    echo "JackLeiMinerProxy已啟動"
-    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
+    
+    echo "JackLeiMinerProxy已启动"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式输出"
 }
 
 
@@ -91,8 +115,8 @@ restart(){
     screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
     screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
 
-    echo "JackLeiMinerProxy 已經重新啟動"
-    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
+    echo "JackLeiMinerProxy 已经重新启动"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式输出"
 }
 
 
@@ -110,7 +134,6 @@ change_limit(){
     fi
 
     cat >> /etc/sysctl.conf <<-EOF
-
 fs.file-max = 1000000
 fs.inotify.max_user_instances = 8192
 
@@ -152,17 +175,18 @@ check_limit(){
 
 
 echo "======================================================="
-echo "JackLeiMinerProxy 一鍵腳本，脚本默认安装到/root/JackLeiMinerProxy"
-echo "                                   腳本版本：999pro"
+echo "JackLeiMinerProxy 一键脚本，脚本默认安装到/root/JackLeiMinerProxy"
+echo "                                   脚本版本：999pro"
 echo "  1、安  装"
 echo "  2、卸  载"
+echo "  3、更  新"
 echo "  4、启  动"
 echo "  5、重  启"
 echo "  6、停  止"
 echo "  7、一键解除Linux连接数限制(需手动重启系统生效)"
 echo "  8、查看当前系统连接数限制"
 echo "======================================================="
-read -p "$(echo -e "請選擇[1-8]：")" choose
+read -p "$(echo -e "请选择[1-8]：")" choose
 case $choose in
     1)
         install
@@ -189,6 +213,6 @@ case $choose in
         check_limit
         ;;
     *)
-        echo "請輸入正確的數字！"
+        echo "请输入正确的数字！"
         ;;
 esac

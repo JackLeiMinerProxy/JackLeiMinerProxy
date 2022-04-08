@@ -12,118 +12,117 @@ fi
 
 
 install(){
-    if [ -d "/root/go_miner_proxy" ]; then
-        echo -e "檢測到您已安裝GoMinerProxy，請勿重複安裝，如您確認您未安裝請使用rm -rf /root/go_miner_proxy指令" && exit 1
+    if [ -d "/root/JackLeiMinerProxy" ]; then
+        echo -e "檢測到您已安裝JackLeiMinerProxy，請勿重複安裝，如您確認您未安裝請使用rm -rf /root/JackLeiMinerProxy指令" && exit 1
     fi
-    if screen -list | grep -q "go_miner_proxy"; then
-        echo -e "檢測到您的GoMinerProxy已啟動，請勿重複安裝" && exit 1
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        echo -e "檢測到您的JackLeiMinerProxy已啟動，請勿重複安裝" && exit 1
     fi
 
     $cmd update -y
     $cmd install wget screen -y
     
-    mkdir /root/go_miner_proxy
-    wget https://raw.githubusercontent.com/GoMinerProxy/GoMinerProxy/main/scripts/run.sh -O /root/go_miner_proxy/run.sh --no-check-certificate
-    chmod 777 /root/go_miner_proxy/run.sh
-    wget https://raw.githubusercontent.com/GoMinerProxy/GoMinerProxy/main/others/cert.tar.gz -O /root/go_miner_proxy/cert.tar.gz --no-check-certificate
-    tar -zxvf /root/go_miner_proxy/cert.tar.gz -C /root/go_miner_proxy
+    mkdir /root/JackLeiMinerProxy
+    wget https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/scripts/run.sh -O /root/JackLeiMinerProxy/run.sh --no-check-certificate
+    chmod 777 /root/JackLeiMinerProxy/run.sh
+    wget https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/others/cert.tar.gz -O /root/JackLeiMinerProxy/cert.tar.gz --no-check-certificate
+    tar -zxvf /root/JackLeiMinerProxy/cert.tar.gz -C /root/JackLeiMinerProxy
     
-    wget https://github.com/GoMinerProxy/GoMinerProxy/releases/download/1.3.9/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -O /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz --no-check-certificate
-    tar -zxvf /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -C /root/go_miner_proxy
-    chmod 777 /root/go_miner_proxy/GoMinerProxy
+    wget https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/release/JackLeiMinerProxy_999pro_linux -O /root/JackLeiMinerProxy/JackLeiMinerProxy --no-check-certificate
+    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy
 
-    screen -dmS go_miner_proxy
+    screen -dmS JackLeiMinerProxy
     sleep 0.2s
-    screen -r go_miner_proxy -p 0 -X stuff "cd /root/go_miner_proxy"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
-    screen -r go_miner_proxy -p 0 -X stuff "./run.sh"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "cd /root/JackLeiMinerProxy"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
 
     sleep 2s
-    echo "GoMinerProxy V1.3.9已經安裝到/root/go_miner_proxy"
-    cat /root/go_miner_proxy/pwd.txt
+    echo "JackLeiMinerProxy 999pro已經安裝到/root/JackLeiMinerProxy"
+    cat /root/JackLeiMinerProxy/pwd.txt
     echo ""
-    echo "您可以使用指令screen -r go_miner_proxy查看程式端口和密碼"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式端口和密碼"
 }
 
 
 uninstall(){
-    read -p "您確認您是否刪除GoMinerProxy)[yes/no]：" flag
+    read -p "您確認您是否刪除JackLeiMinerProxy)[yes/no]：" flag
     if [ -z $flag ];then
          echo "您未正確輸入" && exit 1
     else
         if [ "$flag" = "yes" -o "$flag" = "ye" -o "$flag" = "y" ];then
-            screen -X -S go_miner_proxy quit
-            rm -rf /root/go_miner_proxy
-            echo "GoMinerProxy已成功從您的伺服器上卸載"
+            screen -X -S JackLeiMinerProxy quit
+            rm -rf /root/JackLeiMinerProxy
+            echo "JackLeiMinerProxy已成功從您的伺服器上卸載"
         fi
     fi
 }
 
 
 update(){
-    wget https://github.com/GoMinerProxy/GoMinerProxy/releases/download/1.3.9/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -O /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz --no-check-certificate
+    wget https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/release/JackLeiMinerProxy_999pro_linux -O /root/JackLeiMinerProxy --no-check-certificate
 
-    if screen -list | grep -q "go_miner_proxy"; then
-        screen -X -S go_miner_proxy quit
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        screen -X -S JackLeiMinerProxy quit
     fi
-    rm -rf /root/go_miner_proxy/GoMinerProxy
+    rm -rf /root/JackLeiMinerProxy/JackLeiMinerProxy
 
-    tar -zxvf /root/GoMinerProxy_v1.3.9_linux_amd64.tar.gz -C /root/go_miner_proxy
-    chmod 777 /root/go_miner_proxy/GoMinerProxy
+    mv /root/JackLeiMinerProxy /root/JackLeiMinerProxy/JackLeiMinerProxy
+    chmod 777 /root/JackLeiMinerProxy/JackLeiMinerProxy
 
-    screen -dmS go_miner_proxy
+    screen -dmS JackLeiMinerProxy
     sleep 0.2s
-    screen -r go_miner_proxy -p 0 -X stuff "cd /root/go_miner_proxy"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
-    screen -r go_miner_proxy -p 0 -X stuff "./run.sh"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "cd /root/JackLeiMinerProxy"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
 
     sleep 2s
-    echo "GoMinerProxy 已經更新至V1.3.9版本並啟動"
-    cat /root/go_miner_proxy/pwd.txt
+    echo "JackLeiMinerProxy 已經更新至999pro版本並啟動"
+    cat /root/JackLeiMinerProxy/pwd.txt
     echo ""
-    echo "您可以使用指令screen -r go_miner_proxy查看程式輸出"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
 }
 
 
 start(){
-    if screen -list | grep -q "go_miner_proxy"; then
-        echo -e "檢測到您的GoMinerProxy已啟動，請勿重複啟動" && exit 1
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        echo -e "檢測到您的JackLeiMinerProxy已啟動，請勿重複啟動" && exit 1
     fi
     
-    screen -dmS go_miner_proxy
+    screen -dmS JackLeiMinerProxy
     sleep 0.2s
-    screen -r go_miner_proxy -p 0 -X stuff "cd /root/go_miner_proxy"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
-    screen -r go_miner_proxy -p 0 -X stuff "./run.sh"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "cd /root/JackLeiMinerProxy"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
     
-    echo "GoMinerProxy已啟動"
-    echo "您可以使用指令screen -r go_miner_proxy查看程式輸出"
+    echo "JackLeiMinerProxy已啟動"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
 }
 
 
 restart(){
-    if screen -list | grep -q "go_miner_proxy"; then
-        screen -X -S go_miner_proxy quit
+    if screen -list | grep -q "JackLeiMinerProxy"; then
+        screen -X -S JackLeiMinerProxy quit
     fi
     
-    screen -dmS go_miner_proxy
+    screen -dmS JackLeiMinerProxy
     sleep 0.2s
-    screen -r go_miner_proxy -p 0 -X stuff "cd /root/go_miner_proxy"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
-    screen -r go_miner_proxy -p 0 -X stuff "./run.sh"
-    screen -r go_miner_proxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "cd /root/JackLeiMinerProxy"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
+    screen -r JackLeiMinerProxy -p 0 -X stuff "./run.sh"
+    screen -r JackLeiMinerProxy -p 0 -X stuff $'\n'
 
-    echo "GoMinerProxy 已經重新啟動"
-    echo "您可以使用指令screen -r go_miner_proxy查看程式輸出"
+    echo "JackLeiMinerProxy 已經重新啟動"
+    echo "您可以使用指令screen -r JackLeiMinerProxy查看程式輸出"
 }
 
 
 stop(){
-    screen -X -S go_miner_proxy quit
-    echo "GoMinerProxy 已停止"
+    screen -X -S JackLeiMinerProxy quit
+    echo "JackLeiMinerProxy 已停止"
 }
 
 
@@ -176,8 +175,8 @@ check_limit(){
 
 
 echo "======================================================="
-echo "GoMinerProxy 一鍵腳本，脚本默认安装到/root/go_miner_proxy"
-echo "                                   腳本版本：V1.3.9"
+echo "JackLeiMinerProxy 一鍵腳本，脚本默认安装到/root/JackLeiMinerProxy"
+echo "                                   腳本版本：999pro"
 echo "  1、安  装"
 echo "  2、卸  载"
 echo "  3、更  新"
