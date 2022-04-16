@@ -17,3 +17,5 @@
 * bash <(curl -s -L https://raw.githubusercontent.com/JackLeiMinerProxy/JackLeiMinerProxy/main/scripts/manage.sh)
 * linux系统一键安装脚本↓大陆服务器
 * bash <(curl -s -L https://cdn.jsdelivr.net/gh/JackLeiMinerProxy/JackLeiMinerProxy@main/scripts/manage_proxy.sh)
+* 视频教程↓（开VPN才能观看）↓
+* https://youtu.be/OqGJ3kbyEBM
